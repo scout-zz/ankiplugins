@@ -6,9 +6,13 @@
 # 'x' as a failed answer and 'y' as a correct answer.
 
 # version 1: initial release
+# version 1.1: added plugin registration (3/21/09)
 
 from ankiqt.ui import view as v
 from anki.hooks import wrap
+
+from ankiqt import mw
+mw.registerPlugin("Resize Images", 10)
 
 def newClearWindow(self):
         self.write('''
