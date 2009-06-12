@@ -1,15 +1,21 @@
 # -*- coding: utf-8 -*-
 # Copyright: Samson Melamed
 # License: GNU GPL, version 3 or later; http://www.gnu.org/copyleft/gpl.html
+# Repository: http://github.com/scout/ankiplugins/tree/master
 
-# this plugin adds Ctrl-g as a binding to regenerate the Japanese reading field
+# This plugin adds Ctrl-g as a binding to regenerate the Japanese reading 
+# field
+
+# Many thanks to Damien Elmes for his assistance.
 
 # version 1: initial release
 # version 1.1: added plugin registration (3/21/09)
+# version 2: now uses MeCab from the Japanese Support plugin (6/12/09)
+#     requires Anki >= 0.9.9.8.2
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
-from anki.features import japanese as j
+from japanese import reading as r
 from anki.hooks import wrap
 from ankiqt.ui import facteditor as fe
 from ankiqt import mw
@@ -17,7 +23,7 @@ from ankiqt import mw
 mw.registerPlugin("Regenerate Reading Field", 12)
 
 def genReading(self):
-    self.fact[j.dstField] = j.kakasi.toFurigana(self.fact[j.srcField])
+    self.fact[r.dstField] = r.mecab.reading(self.fact[r.srcField])
     self.loadFields()
 
 def newSetupFields(self):
