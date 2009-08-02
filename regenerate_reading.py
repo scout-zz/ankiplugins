@@ -12,6 +12,8 @@
 # version 1.1: added plugin registration (3/21/09)
 # version 2: now uses MeCab from the Japanese Support plugin (6/12/09)
 #     requires Anki >= 0.9.9.8.2
+# version 2.1: sets fact and deck as modified, to avoid data loss on sync
+#     thanks to Qwertyu for the patch and ceba for the original report
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -24,6 +26,8 @@ mw.registerPlugin("Regenerate Reading Field", 12)
 
 def genReading(self):
     self.fact[r.dstField] = r.mecab.reading(self.fact[r.srcField])
+    self.fact.setModified(textChanged=True)
+    self.deck.setModified() 
     self.loadFields()
 
 def newSetupFields(self):
