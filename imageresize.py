@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
-# Copyright: Damien Elmes <anki@ichi2.net>
+# Copyright: Samson Melamed <scoutsghost@gmail.com> and 
+#            Damien Elmes <anki@ichi2.net>
 # License: GNU GPL, version 3 or later; http://www.gnu.org/copyleft/gpl.html
 
-# this plugin allows you to redefine the keys used to answer cards. it defines
-# 'x' as a failed answer and 'y' as a correct answer.
+# this plugin resizes images that are wider then the window to 100% of the
+# window width
 
 # version 1: initial release
 # version 1.1: added plugin registration (3/21/09)
+# version 1.2: changed from hooking on clearWindow to setBackground for
+#   compatibility with Anki 1.1+ (1/22/11)
 
 from ankiqt.ui import view as v
 from anki.hooks import wrap
@@ -30,5 +33,5 @@ window.onload = function(){
 //]]>
 </script>''')
 
-v.View.clearWindow = wrap(v.View.clearWindow, newClearWindow,
+v.View.setBackground = wrap(v.View.setBackground, newClearWindow,
         "after")
